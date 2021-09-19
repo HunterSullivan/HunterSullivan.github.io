@@ -8,9 +8,6 @@ ul {
   overflow: hidden;
   background-color: #12437a;
 }
-li {
-  float: left;
-}
 
 li a {
   display: block;
@@ -46,18 +43,19 @@ body {
 
 <nav>
   <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
-    <li><a href="Contested checker.html">Contested Checks</a></li>
+    <li style="float: left;"><a href="index.html">Home</a></li>
+    <li style="float: left;"><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
+    <li style="float: left;"><a href="Contested checker.html">Contested Checks</a></li>
   </ul>
 </nav>
 
 <h1>AQ: Jaern Helper Tools</h1>
 <p>This website's purpose is to provide tools to make running and playing <i>AQ: Jaern</i> a little easier. On it, you'll find: <br>
-<ul style="background-color: grey;">
+<ul style="background-color: grey; text-align: left; display: table; margin: 0 auto;">
     <li><b>Multiattack Roller:</b> a roller for rolling multiple attacks at once.</li>
     <li><b>Contested Checker</b> a roller that will roll a contested check for you, with the option of having it roll for both you and your opponent.</li>
-</ul></p>
+</ul>
+</p>
 
 <div style="position: absolute; bottom: 5px; text-align: left;"><button type="button" class="button" id="inf" onclick="info()">Show Info</button>
     <address id="info" style="background-color: #0b2747; color: white; font-size: 10px;"></address>

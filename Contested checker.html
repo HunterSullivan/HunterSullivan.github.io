@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #12437a;
+}
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #0b2747;
+}
+body {
+    background-color: grey;
+    text-align: center;
+}
+</style>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
+    <li><a href="Contested checker.html">Contested Checks</a></li>
+  </ul>
+</nav>
+<h1>Contested Skill Checker</h1>
+<p>Input your skill in the "Your Skill" text box. If you know the opponent's skill, you can input that in the "Opponent's Skill" text box and it will roll for both of them and see who wins."</p>
+
+<label for="youSkill">Your Skill:</label>
+<input type="number" id="youSkill" name="youSkill"><br><br>
+
+<label for="theySkill">Opponent's Skill:</label>
+<input type="number" id="theySkill" name="theySkill"><br><br>
+
+<button type="button" onclick="SkillRoller()">Attack!</button>
+
+<p id="uResult"></p>
+<p id="tResult"></p>
+
+<script>
+
+    function SkillRoller() {
+        let min = Math.ceil(1);
+        let max = Math.floor(6);
+        let uDice = Math.floor(Number(document.getElementById("youSkill").value)/3);
+        let tDice = Math.floor(Number(document.getElementById("theySkill").value)/3);
+        let uResult = "";
+        let tResult = "";
+        let uMax = 0;
+        let tMax = 0;
+        let fResult = "";
+        let fin = "";
+        
+        console.log(uDice, tDice);
+
+        if(uDice < 0) {
+            document.getElementById("uResult").innerHTML = "Please input a positive number for your skill";
+            return;
+        }
+
+        if(uDice == 0) {
+            uResult = 0;
+            uMax = 0;
+        } else {
+            for(var i = 0; i < uDice; i++) {
+                let d6 = Math.floor(Math.random() * (max - min + 1) + min);
+                uMax += d6;
+                if(i == 0) {
+                    uResult += d6;
+                } else {
+                    uResult += " + " + d6;
+                }
+            }
+        }
+
+        let tcheck = document.getElementById("theySkill").value;
+
+        console.log(tcheck);
+
+        if(tcheck != "") {
+            if(tDice == 0) {
+                tResult = 0;
+                tMax = 0;
+            } else {
+                for(var i = 0; i < tDice; i++) {
+                    let d6 = Math.floor(Math.random() * (max - min + 1) + min);
+                    tMax += d6;
+                    if(i == 0) {
+                        tResult += d6;
+                    } else {
+                        tResult += " + " + d6;
+                    }
+                }
+            }    
+        }
+        
+        if(tMax != -1) {
+            if(uMax > tMax) {
+                fResult = "You win the contest!";
+            } else if(tMax > uMax) {
+                fResult = "The opponent wins the contest!";
+            } else {
+                fResult = "The contest is a draw!";
+            }
+        }
+
+        fin = "Your roll: " + uResult + " Total: " + uMax;
+        if(tMax != -1) {
+            fin += "<br>Opponents roll: " +  tResult + " Total: " + tMax + "<br>" + fResult;
+        }
+        document.getElementById("uResult").innerHTML = fin;
+    }
+
+</script>
+
+</body>
+</html>
+

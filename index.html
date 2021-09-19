@@ -40,12 +40,14 @@ body {
     background-color: #0b2747;
 }
 </style>
-
+<body>
+    <div id="navigation"></div>
 <nav>
   <ul>
     <li style="float: left;"><a href="index.html">Home</a></li>
     <li style="float: left;"><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
     <li style="float: left;"><a href="Contested checker.html">Contested Checks</a></li>
+    <li style="float: left;"><a href="Gradual Checker.html">Gradual Checks</a></li>
   </ul>
 </nav>
 
@@ -53,7 +55,8 @@ body {
 <p>This website's purpose is to provide tools to make running and playing <i>AQ: Jaern</i> a little easier. On it, you'll find: <br>
 <ul style="background-color: grey; text-align: left; display: table; margin: 0 auto;">
     <li><b>Multiattack Roller:</b> a roller for rolling multiple attacks at once.</li>
-    <li><b>Contested Checker</b> a roller that will roll a contested check for you, with the option of having it roll for both you and your opponent.</li>
+    <li><b>Contested Checker:</b> a roller that will roll a contested check for you, with the option of having it roll for both you and your opponent.</li>
+    <li><b>Gradual Checker:</b> a roller that will roll a gradual check for you.</li>
 </ul>
 </p>
 
@@ -63,15 +66,15 @@ body {
 </body>
 <script>
     function info() {
-    let info = document.getElementById("info").innerHTML;
-    if(info == "") {
-        document.getElementById("info").innerHTML = "Made by Hunter Sullivan <br> Issues or ideas? Message me on the PFC Discord!";
-        document.getElementById("inf").innerHTML = "Hide Info";
-    } else {
-        document.getElementById("info").innerHTML = "";
-        document.getElementById("inf").innerHTML = "Show Info";
+        let info = document.getElementById("info").innerHTML;
+        if(info == "") {
+            document.getElementById("info").innerHTML = "Made by Hunter Sullivan <br> Issues or ideas? Message me on the PFC Discord!";
+            document.getElementById("inf").innerHTML = "Hide Info";
+        } else {
+            document.getElementById("info").innerHTML = "";
+            document.getElementById("inf").innerHTML = "Show Info";
+        }
     }
-}
 </script>
 </html>
 

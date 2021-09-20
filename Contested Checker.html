@@ -36,6 +36,8 @@ body {
     <li style="float: left;"><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
     <li style="float: left;"><a href="Contested checker.html">Contested Checks</a></li>
     <li style="float: left;"><a href="Gradual Checker.html">Gradual Checks</a></li>
+    <li style="float: left;"><a href="Crit Roller.html">Critical Roller</a></li>
+
   </ul>
 </nav>
 
@@ -67,8 +69,6 @@ body {
         let fResult = "";
         let fin = "";
         
-        console.log(uDice, tDice);
-
         if(uDice < 0) {
             document.getElementById("uResult").innerHTML = "Please input a positive number for your skill";
             return;
@@ -90,8 +90,6 @@ body {
         }
 
         let tcheck = document.getElementById("theySkill").value;
-
-        console.log(tcheck);
 
         if(tcheck != "") {
             if(tDice == 0) {

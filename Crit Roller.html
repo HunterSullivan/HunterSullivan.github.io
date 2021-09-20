@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html>
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #12437a;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #0b2747;
+    }
+
+    body {
+        background-color: grey;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="navigation"></div>
+    <nav>
+        <ul>
+            <li style="float: left;"><a href="index.html">Home</a></li>
+            <li style="float: left;"><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
+            <li style="float: left;"><a href="Contested checker.html">Contested Checks</a></li>
+            <li style="float: left;"><a href="Gradual Checker.html">Gradual Checks</a></li>
+            <li style="float: left;"><a href="Crit Roller.html">Critical Roller</a></li>
+
+        </ul>
+    </nav>
+
+    <h1>Critical Hit Roller</h1>
+    <p>Choose a table and input any modifiers to get a critical hit result.</p>
+    <label>Damage Type:</label> <select id="Type">
+        <option> Blunt </option>
+        <option> Bludgeon </option>
+        <option> Edged </option>
+        <option> Piercing </option>
+        <option> Grapple </option>
+        <option> Linear </option>
+        <option> Artillery </option>
+    </select><br><br>
+    <label for="mods">Modifiers:</label>
+    <input type="number" id="mods" name="mods"><br><br>
+
+    <label for="ass">Assassin Perk?</label>
+    <input type="checkbox" id="ass" name="ass"><br><br>
+    <button type="button" onclick="critRoller()">Roll!</button>
+    <p id="result"></p>
+
+</body>
+<script>
+    function critRoller() {
+        let min = Math.ceil(1);
+        let max = Math.floor(100);
+        let multi = 0;
+        let mod = Number(document.getElementById("mods").value);
+        let assassin = document.getElementById("ass").checked;
+        let dType = document.getElementById("Type").value;
+        let result = "";
+        let bleed = 0;
+        let pain = 0;
+        let mortal = 0;
+        let bludg = 0
+
+        if (assassin == true && (dType == "Edged" || dType == "Piercing" || dType == "Linear")) {
+            dType += "Ass";
+        }
+
+        let d100 = Math.floor(Math.random() * (max - min + 1) + min);
+        let roll = d100 + mod;
+        if (roll > 100) {
+            roll = 100;
+        }
+        if (roll <= 0) {
+            roll = 1;
+        }
+        switch (dType) {
+            case "Blunt":
+                switch (roll) {
+                    case 1:
+                        result = "Self Hit, roll normal damage on self";
+                        multi = 1;
+                        break;
+                    case 2:
+                    case 3:
+                        result = "Weapon Broken, -5 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 4:
+                    case 5:
+                        result = "Haft cracked, 50% chance of breaking on use";
+                        multi = 1;
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                        result = "Arms shocked, lose one round";
+                        multi = 1;
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                        result = "Double Damage";
+                        multi = 2;
+                        break;
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                    case 70:
+                        result = "Triple Damage";
+                        multi = 3;
+                        break;
+                    case 71:
+                    case 72:
+                    case 73:
+                        result = "Weapon or shield broken";
+                        multi = 2;
+                        break;
+                    case 74:
+                    case 75:
+                    case 76:
+                    case 77:
+                        result = "Armor Damage, lose d2 DV";
+                        multi = 3;
+                        break;
+                    case 78:
+                        result = "d6 ribs broken";
+                        multi = 2;
+                        break;
+                    case 79:
+                        result = "Leg/tail broken";
+                        multi = 2;
+                        break;
+                    case 80:
+                        result = "Arm/wing broken";
+                        multi = 2;
+                        break;
+                    case 81:
+                        result = "Shoulder/wing damage";
+                        multi = 2;
+                        break;
+                    case 82:
+                        result = "Arm/wing smashed, unusable";
+                        multi = 2;
+                        break;
+                    case 83:
+                        result = "Leg/tail smashed, unusable";
+                        multi = 2;
+                        break;
+                    case 84:
+                        result = "Hand smashed, unusable";
+                        multi = 2;
+                        break;
+                    case 85:
+                        result = "Chest Hit, winded and gasping d4 rounds";
+                        multi = 2;
+                        break;
+                    case 86:
+                        result = "Stomach hit, stunned 14 - HEA rounds";
+                        multi = 2;
+                        break;
+                    case 87:
+                        result = "Groin smashed, stunned 20 - HEA rounds";
+                        multi = 3;
+                        break;
+                    case 88:
+                        result = "Head hit, stunned d4 minutes, normal damage with helmet";
+                        multi = 3;
+                        break;
+                    case 89:
+                        result = "Hand severed";
+                        multi = 2;
+                        break;
+                    case 90:
+                        result = "Face hit, blood blinds d4 rounds if no helmet";
+                        multi = 2;
+                        break;
+                    case 91:
+                        result = "Face hit, permanently blind if no helmet";
+                        multi = 2;
+                        break;
+                    case 92:
+                        result = "Head hit, unconscious d4 days, if helmet unconscious d4 minutes and double damage";
+                        multi = 3;
+                        break;
+                    case 93:
+                        result = "Knee cap shattered, no movement";
+                        multi = 3;
+                        bleed = 1
+                        break;
+                    case 94:
+                        result = "Jaw broken, no speech";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 95:
+                        result = "Kidney destroyed, if both gone death in HEA/2 rounds";
+                        multi = 3;
+                        break;
+                    case 96:
+                        result = "Internal organs crushed, death in HEA/2 rounds";
+                        multi = 4;
+                        break;
+                    case 97:
+                        result = "Chest caved in, death in HEA/3 rounds";
+                        multi = 4;
+                        break;
+                    case 98:
+                        result = "Spine severed, paralyzed";
+                        multi = 3;
+                        break;
+                    case 99:
+                        result = "Head crushed, INSTANT DEATH, if helmet triple damage";
+                        multi = 5;
+                        break;
+                    case 100:
+                        result = "Head torn off, INSTANT DEATH";
+                        multi = 6;
+                        break;
+                }
+                break;
+            case "Bludgeon":
+                switch (roll) {
+                    case 1:
+                    case 2:
+                        result = "Roll again, apply results to self";
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                        result = "Shoulder hit, 1 point of damage";
+                        break;
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                        result = "Shoulder hit and target falls";
+                        break;
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                        result = "Glancing hit 1d2 damage";
+                        break;
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                        result = "Stun 1d6 rounds";
+                        break;
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                        result = "Stun 1d6 rounds and fall";
+                        break;
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                    case 70:
+                        result = "Unconscious 1d6 x 10 minutes";
+                        break;
+                    case 71:
+                    case 72:
+                    case 73:
+                    case 74:
+                    case 75:
+                    case 76:
+                    case 77:
+                    case 78:
+                    case 79:
+                    case 80:
+                        result = "Unconscious 2d6 hours";
+                        bludg = 1;
+                        break;
+                    case 81:
+                    case 82:
+                    case 83:
+                    case 84:
+                    case 85:
+                    case 86:
+                        result = "Comatose 1d6 days";
+                        bludg = 1;
+                        break;
+                    case 87:
+                    case 88:
+                    case 89:
+                    case 90:
+                        result = "Coma 1d6 weeks";
+                        bludg = 1;
+                        break;
+                    case 91:
+                    case 92:
+                    case 93:
+                    case 94:
+                    case 95:
+                    case 96:
+                    case 97:
+                    case 98:
+                    case 99:
+                    case 100:
+                        result = "Death";
+                        break;
+                }
+                break;
+            case "Edged":
+                switch (roll) {
+                    case 1:
+                        result = "Self Hit, roll normal damage on self";
+                        multi = 1;
+                        break;
+                    case 2:
+                    case 3:
+                        result = "Blade broken, use at a -5 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 4:
+                    case 5:
+                        result = "Blade bent, use at a -3 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 6:
+                    case 7:
+                        result = "Blade cracked, use at a -1 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 8:
+                    case 9:
+                    case 10:
+                        result = "Blade stuck in opponent, 3d6 vs STR to free";
+                        multi = 2;
+                        break;
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                        result = "Double Damage";
+                        multi = 2;
+                        break;
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                        result = "Triple Damage";
+                        multi = 3;
+                        break;
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                    case 70:
+                    case 71:
+                    case 72:
+                        result = "Quadruple Damage";
+                        multi = 4;
+                        break;
+                    case 73:
+                    case 74:
+                    case 75:
+                    case 76:
+                    case 77:
+                        result = "Weapon or shield broken";
+                        multi = 2;
+                        break;
+                    case 78:
+                    case 79:
+                    case 80:
+                    case 81:
+                    case 82:
+                        result = "Armor Damage, lose d4 DV";
+                        multi = 3;
+                        break;
+                    case 83:
+                        result = "d6 ribs broken";
+                        multi = 2;
+                        break;
+                    case 84:
+                        result = "Leg/tail broken";
+                        multi = 2;
+                        break;
+                    case 85:
+                        result = "Arm/Wing broken";
+                        multi = 2;
+                        break;
+                    case 86:
+                        result = "Shoulder/Wing damage";
+                        multi = 3;
+                        break;
+                    case 87:
+                        result = "Hand severed";
+                        multi = 2;
+                        bleed = 1;
+                        break;
+                    case 88:
+                        result = "Arm/Wing Severed";
+                        multi = 3;
+                        bleed = 1
+                        break;
+                    case 89:
+                        result = "Leg/Tail Severed";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 90:
+                        result = "Groin cloven, incapacitated 20 - HEA minutes";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 91:
+                        result = "Head hit, stunned d4 minutes, normal damage with helmet";
+                        multi = 3;
+                        break;
+                    case 92:
+                        result = "Face hit, permanent blindness, blood blinds d4 rounds if helmet, triple damage";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 93:
+                        result = "Head hit, unconscious d4 days, if helmet unconscious d4 minutes, triple damage";
+                        multi = 4;
+                        break;
+                    case 94:
+                        result = "Kidney destroyed, if both gone death in HEA/2 rounds";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 95:
+                        result = "Internal organs pureed, death in HEA/2 rounds";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 96:
+                        result = "Chest opened, heart and lungs slashed, death in HEA/3 rounds";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 97:
+                        result = "Spine severed, paralyzed";
+                        multi = 5;
+                        bleed = 1;
+                        break;
+                    case 98:
+                        result = "Head split, INSTANT DEATH, if helmet x4 damage";
+                        multi = 6;
+                        break;
+                    case 99:
+                        result = "Cleft in twain, INSTANT DEATH";
+                        multi = 6;
+                        break;
+                    case 100:
+                        result = "Head severed, INSTANT DEATH";
+                        multi = 6;
+                        break;
+                }
+                break;
+            case "Piercing":
+                switch (roll) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        result = "Weapon broken, no damage";
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        result = "Point blunted, -2 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 8:
+                    case 9:
+                    case 10:
+                        result = "Weapon stuck/Bow string snapped, 3d6 vs STR to free/restring";
+                        multi = 2;
+                        break;
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                        result = "Double damage";
+                        multi = 2;
+                        break;
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                        result = "Triple damage";
+                        multi = 3;
+                        break;
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                        result = "Quadruple damage";
+                        multi = 4;
+                        break;
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                        result = "Quintuple damage";
+                        multi = 5;
+                        break;
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                        result = "Armor Damage, lose 1 DV";
+                        multi = 3;
+                        break;
+                    case 67:
+                    case 68:
+                        result = "Shoulder/Wing pierced";
+                        multi = 2;
+                        break;
+                    case 69:
+                    case 70:
+                        result = "Leg/Tail pierced";
+                        multi = 2;
+                        break;
+                    case 71:
+                    case 72:
+                        result = "Arm/Wing pierced";
+                        multi = 2;
+                        break;
+                    case 73:
+                    case 74:
+                        result = "Hamstrung, unable to walk for 30 - HEA days";
+                        multi = 3;
+                        break;
+                    case 75:
+                    case 76:
+                        result = "Hand impaled, 2d6 vs STR to remove";
+                        multi = 3;
+                        break;
+                    case 77:
+                    case 78:
+                        result = "Ear sheared";
+                        multi = 2;
+                        break;
+                    case 79:
+                    case 80:
+                        result = "Nose removed";
+                        multi = 3;
+                        break;
+                    case 81:
+                    case 82:
+                        result = "Eye hit, permanent blindness";
+                        multi = 4;
+                        break;
+                    case 83:
+                    case 84:
+                        result = "Stomach hit";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 85:
+                    case 86:
+                        result = "Kidney hit, lose 1d4 HEA, if both gone death in HEA/2 rounds";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 87:
+                    case 88:
+                        result = "Liver pierced, lose 1d6 HEA";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 89:
+                    case 90:
+                        result = "Lung hit, incapacitated until healed, lose 1d3 HEA, die if other lung gone";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 91:
+                    case 92:
+                        result = "Groin pierced, incapacitated until healed";
+                        multi = 5;
+                        bleed = 1;
+                        break;
+                    case 93:
+                    case 94:
+                        result = "Head hit, if helmet only double damage";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                    case 95:
+                    case 96:
+                        result = "Heart pierced, INSTANT DEATH";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                    case 97:
+                    case 98:
+                        result = "Throat pierced, INSTANT DEATH";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                    case 99:
+                    case 100:
+                        result = "Eye pierced, INSTANT DEATH";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                }
+                break;
+            case "Grapple":
+                switch (roll) {
+                    case 1:
+                        result = "Attacker trips and opponent has the option to grapple him without a roll";
+                        break;
+                    case 2:
+                    case 3:
+                        result = "Attacker breaks a finger and is unable to use hand until fixed";
+                        break;
+                    case 4:
+                    case 5:
+                        result = "Attacker damages armor he is wearing, -1 to all armor DVs";
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                        result = "Attacker’s finger gets jammed and he cannot use his hand for 1 round";
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                        result = "Rib cracked, take 1d4 damage";
+                        break;
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                    case 70:
+                        result = "Rib broken, take 1d8 damage";
+                        break;
+                    case 71:
+                    case 72:
+                    case 73:
+                        result = "Weapon or shield broken";
+                        break;
+                    case 74:
+                    case 75:
+                    case 76:
+                    case 77:
+                    case 78:
+                        result = "Armor Damage, lose d2 DV";
+                        break;
+                    case 79:
+                        result = "Left Leg/Tail broken";
+                        break;
+                    case 80:
+                        result = "Left Arm/Wing broken";
+                        break;
+                    case 81:
+                        result = "Left Shoulder/Wing dislocated";
+                        break;
+                    case 82:
+                        result = "Arm/Wing smashed, unusable";
+                        break;
+                    case 83:
+                        result = "Leg/Tail smashed, unusable";
+                        break;
+                    case 84:
+                        result = "Hand smashed, unusable";
+                        break;
+                    case 85:
+                        result = "Chest hit, winded and gasping 1d4 rounds";
+                        break;
+                    case 86:
+                        result = "Stomach hit, stunned 14 – HEA rounds";
+                        break;
+                    case 87:
+                    case 88:
+                        result = "Groin smashed, stunned 20 – HEA rounds";
+                        break;
+                    case 89:
+                        result = "Head hit, stunned 1d4 minutes";
+                        break;
+                    case 90:
+                        result = "Face hit, blood blinds for 1d4 round unless wearing helmet";
+                        break;
+                    case 91:
+                        result = "Face hit, permanently blind if no helmet";
+                        break;
+                    case 92:
+                        result = "Head hit, unconscious d4 days, if helmet unconscious d4 minutes";
+                        break;
+                    case 93:
+                        result = "Knee cap shattered, no movement";
+                        break;
+                    case 94:
+                        result = "Jaw broken, no speech";
+                        break;
+                    case 95:
+                        result = "Kidney destroyed, if both gone death in HEA/2 rounds";
+                        break;
+                    case 96:
+                        result = "Internal organs crushed, death in HEA/2 rounds";
+                        break;
+                    case 97:
+                        result = "Chest caved in, death in HEA/3 rounds";
+                        break;
+                    case 98:
+                        result = "Spine severed, paralyzed";
+                        break;
+                    case 99:
+                        result = "Head crushed, INSTANT DEATH, if helmet triple damage";
+                        break;
+                    case 100:
+                        result = "Head torn off, INSTANT DEATH";
+                        break;
+                }
+                break;
+            case "Linear":
+                switch (roll) {
+                    case 1:
+                        result = "Catastrophic failure, failure based on weapon";
+                        multi = 1;
+                        break;
+                    case 2:
+                    case 3:
+                        result = "Weapon malfunction, requires repair, no hit";
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                        result = "Weapon malfunction, requires repair, hit";
+                        multi = 1;
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                        result = "Weapon mishandled, lose 1 round, hit";
+                        multi = 1;
+                        break;
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                        result = "Double damage";
+                        multi = 2;
+                        break;
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                        result = "Triple damage";
+                        multi = 3;
+                        break;
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                        result = "Quadruple damage";
+                        multi = 4;
+                        break;
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                        result = "Shoulder/Wing hit";
+                        multi = 2;
+                        pain = 1;
+                        break;
+                    case 65:
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                        result = "Leg/Tail hit";
+                        multi = 2;
+                        pain = 1;
+                        break;
+                    case 70:
+                    case 71:
+                    case 72:
+                    case 73:
+                        result = "Arm/Wing hit";
+                        multi = 2;
+                        pain = 1;
+                        break;
+                    case 74:
+                    case 75:
+                    case 76:
+                        result = "Knee hit, leg unusable";
+                        multi = 3;
+                        bleed = 1;
+                        pain = 1;
+                        break;
+                    case 77:
+                    case 78:
+                        result = "Elbow hit, arm unusable";
+                        multi = 3;
+                        bleed = 1;
+                        pain = 1;
+                        break;
+                    case 79:
+                    case 80:
+                        result = "Ear removed";
+                        multi = 2;
+                        bleed = 1;
+                        break;
+                    case 81:
+                    case 82:
+                        result = "Nose removed";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 83:
+                    case 84:
+                    case 85:
+                    case 86:
+                    case 87:
+                        result = "Stomach hit";
+                        multi = 3;
+                        bleed = 1;
+                        pain = 1;
+                        break;
+                    case 88:
+                    case 89:
+                        result = "Groin hit, incapacitated until healed";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 90:
+                    case 91:
+                    case 92:
+                    case 93:
+                        result = "Chest hit, death in HEA rounds";
+                        multi = 4;
+                        mortal = 1;
+                        break;
+                    case 94:
+                    case 95:
+                        result = "Throat hit, death in HEA rounds";
+                        multi = 5;
+                        mortal = 1;
+                        break;
+                    case 96:
+                    case 97:
+                        result = "Head hit, death in HEA/2 rounds";
+                        multi = 6;
+                        mortal = 1;
+                        break;
+                    case 98:
+                    case 99:
+                        result = "Chest Destroyed, INSTANT DEATH";
+                        multi = 7;
+                        break;
+                    case 100:
+                        result = "Head Destroyed, INSTANT DEATH";
+                        multi = 7;
+                        break;
+                }
+                break;
+            case "Artillery":
+                switch (roll) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        result = "Weapon breaks, damage firing ship";
+                        multi = 1;
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        result = "Weapon breaks, no damage";
+                        break;
+                    case 8:
+                    case 9:
+                    case 10:
+                        result = "Weapon damaged, unusable";
+                        multi = 2;
+                        break;
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                        result = "Double damage";
+                        multi = 2;
+                        break;
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                        result = "Triple damage";
+                        multi = 3;
+                        break;
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                        result = "Quadruple damage";
+                        multi = 4;
+                        break;
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                        result = "Quintuple damage";
+                        multi = 5;
+                        break;
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                        result = "Hull Damage, lose 1 ADV";
+                        multi = 3;
+                        break;
+                    case 67:
+                    case 68:
+                        result = "Main sail shredded, -50% speed";
+                        multi = 2;
+                        break;
+                    case 69:
+                    case 70:
+                        result = "Upper sail shredded, -25% speed";
+                        multi = 2;
+                        break;
+                    case 71:
+                    case 72:
+                        result = "Boon sail shredded, -50% turning rate";
+                        multi = 2;
+                        break;
+                    case 73:
+                    case 74:
+                        result = "Oars sheared, oaring impossible";
+                        multi = 3;
+                        break;
+                    case 75:
+                    case 76:
+                        result = "One weapon hit and destroyed";
+                        multi = 3;
+                        break;
+                    case 77:
+                    case 78:
+                        result = "Crow’s nest destroyed";
+                        multi = 2;
+                        break;
+                    case 79:
+                    case 80:
+                        result = "Figurehead destroyed";
+                        multi = 3;
+                        break;
+                    case 81:
+                    case 82:
+                        result = "Rigging fouled, 1d6R until ship can move";
+                        multi = 4;
+                        break;
+                    case 83:
+                    case 84:
+                        result = "Passage to below deck hit, blocked by debris";
+                        multi = 3;
+                        break;
+                    case 85:
+                    case 86:
+                        result = "Attack boat/Life boat destroyed";
+                        multi = 3;
+                        break;
+                    case 87:
+                    case 88:
+                        result = "Cargo bay flooded";
+                        multi = 4;
+                        break;
+                    case 89:
+                    case 90:
+                        result = "Helm destroyed, uncontrolled until repaired";
+                        multi = 4;
+                        break;
+                    case 91:
+                    case 92:
+                        result = "Rudder destroyed, uncontrolled until repaired";
+                        multi = 5;
+                        break;
+                    case 93:
+                    case 94:
+                        result = "Cefo killed";
+                        multi = 6;
+                        break;
+                    case 95:
+                    case 96:
+                        result = "Mast falls, ship cannot move";
+                        break;
+                    case 97:
+                    case 98:
+                        result = "Ammo hit, ship explodes and sinks immediately";
+                        break;
+                    case 99:
+                    case 100:
+                        result = "Keel breaks, ship sinks immediately";
+                        break;
+                }
+                break;
+            case "EdgedAss":
+                switch (roll) {
+                    case 1:
+                        result = "Blade broken, use at a -5 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 2:
+                        result = "Blade bent, use at a -3 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 3:
+                        result = "Blade cracked, use at a -1 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 4:
+                        result = "Blade stuck in opponent, 3d6 vs STR to free";
+                        multi = 2;
+                        break;
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                        result = "Double Damage";
+                        multi = 2;
+                        break;
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                        result = "Triple Damage";
+                        multi = 3;
+                        break;
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                        result = "Quadruple Damage";
+                        multi = 4;
+                        break;
+                    case 36:
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                        result = "Hand severed";
+                        multi = 2;
+                        bleed = 1;
+                        break;
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                        result = "Arm/Wing Severed";
+                        multi = 3;
+                        bleed = 1
+                        break;
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+                        result = "Leg/Tail Severed";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 51:
+                    case 52:
+                    case 53:
+                    case 54:
+                    case 55:
+                        result = "Groin cloven, incapacitated 20 - HEA minutes";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 56:
+                    case 57:
+                    case 58:
+                    case 59:
+                    case 60:
+                        result = "Face hit, permanent blindness, blood blinds d4 rounds if helmet, triple damage";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 61:
+                    case 62:
+                    case 63:
+                    case 64:
+                    case 65:
+                        result = "Head hit, unconscious d4 days, if helmet unconscious d4 minutes, triple damage";
+                        multi = 4;
+                        break;
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                    case 70:
+                        result = "Kidney destroyed, if both gone death in HEA/2 rounds";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 71:
+                    case 72:
+                    case 73:
+                    case 74:
+                    case 75:
+                        result = "Internal organs pureed, death in HEA/2 rounds";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 76:
+                    case 77:
+                    case 78:
+                    case 79:
+                    case 80:
+                        result = "Chest opened, heart and lungs slashed, death in HEA/3 rounds";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 81:
+                    case 82:
+                    case 83:
+                    case 84:
+                    case 85:
+                        result = "Spine severed, paralyzed";
+                        multi = 5;
+                        bleed = 1;
+                        break;
+                    case 86:
+                    case 87:
+                    case 88:
+                    case 89:
+                    case 90:
+                        result = "Head split, INSTANT DEATH, if helmet x4 damage";
+                        multi = 6;
+                        break;
+                    case 91:
+                    case 92:
+                    case 93:
+                    case 94:
+                    case 95:
+                        result = "Cleft in twain, INSTANT DEATH";
+                        multi = 6;
+                        break;
+                    case 96:
+                    case 97:
+                    case 98:
+                    case 99:
+                    case 100:
+                        result = "Head severed, INSTANT DEATH";
+                        multi = 6;
+                        break;
+                }
+                break;
+            case "PiercingAss":
+                switch (roll) {
+                    case 1:
+                        result = "Weapon broken, no damage";
+                        break;
+                    case 2:
+                        result = "Point blunted, -2 to strike and damage";
+                        multi = 1;
+                        break;
+                    case 3:
+                        result = "Weapon stuck/Bow string snapped, 3d6 vs STR to free/restring";
+                        multi = 2;
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                        result = "Double damage";
+                        multi = 2;
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                        result = "Triple damage";
+                        multi = 3;
+                        break;
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                        result = "Quadruple damage";
+                        multi = 4;
+                        break;
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                    case 31:
+                    case 32:
+                        result = "Quintuple damage";
+                        multi = 5;
+                        break;
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                        result = "Hamstrung, unable to walk for 30 - HEA days";
+                        multi = 3;
+                        break;
+                    case 37:
+                    case 38:
+                    case 39:
+                    case 40:
+                        result = "Hand impaled, 2d6 vs STR to remove";
+                        multi = 3;
+                        break;
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                        result = "Ear sheared";
+                        multi = 2;
+                        break;
+                    case 45:
+                    case 46:
+                    case 47:
+                    case 48:
+                        result = "Nose removed";
+                        multi = 3;
+                        break;
+                    case 49:
+                    case 50:
+                    case 51:
+                    case 52:
+                        result = "Eye hit, permanent blindness";
+                        multi = 4;
+                        break;
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                        result = "Stomach hit";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 58:
+                    case 59:
+                    case 60:
+                    case 61:
+                    case 62:
+                        result = "Kidney hit, lose 1d4 HEA, if both gone death in HEA/2 rounds";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                    case 67:
+                        result = "Liver pierced, lose 1d6 HEA";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 68:
+                    case 69:
+                    case 70:
+                    case 71:
+                    case 72:
+                        result = "Lung hit, incapacitated until healed, lose 1d3 HEA, die if other lung gone";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 73:
+                    case 74:
+                    case 75:
+                    case 76:
+                    case 77:
+                        result = "Groin pierced, incapacitated until healed";
+                        multi = 5;
+                        bleed = 1;
+                        break;
+                    case 78:
+                    case 79:
+                    case 80:
+                    case 81:
+                    case 82:
+                        result = "Head hit, if helmet only double damage";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                    case 83:
+                    case 84:
+                    case 85:
+                    case 86:
+                    case 87:
+                    case 88:
+                        result = "Heart pierced, INSTANT DEATH";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                    case 89:
+                    case 90:
+                    case 91:
+                    case 92:
+                    case 93:
+                    case 94:
+                        result = "Throat pierced, INSTANT DEATH";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                    case 95:
+                    case 96:
+                    case 97:
+                    case 98:
+                    case 99:
+                    case 100:
+                        result = "Eye pierced, INSTANT DEATH";
+                        multi = 6;
+                        bleed = 1;
+                        break;
+                }
+                break;
+            case "LinearAss":
+                switch (roll) {
+                    case 1:
+                        result = "Catastrophic failure, failure based on weapon";
+                        multi = 1;
+                        break;
+                    case 2:
+                    case 3:
+                        result = "Weapon malfunction, requires repair, hit";
+                        multi = 1;
+                        break;
+                    case 4:
+                    case 5:
+                        result = "Weapon mishandled, lose 1 round, hit";
+                        multi = 1;
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                        result = "Double damage";
+                        multi = 2;
+                        break;
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                        result = "Triple damage";
+                        multi = 3;
+                        break;
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                        result = "Quadruple damage";
+                        multi = 4;
+                        break;
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                    case 31:
+                        result = "Shoulder/Wing hit";
+                        multi = 2;
+                        pain = 1;
+                        break;
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                    case 37:
+                    case 38:
+                        result = "Leg/Tail hit";
+                        multi = 2;
+                        pain = 1;
+                        break;
+                    case 39:
+                    case 40:
+                    case 41:
+                    case 42:
+                    case 43:
+                    case 44:
+                    case 45:
+                        result = "Arm/Wing hit";
+                        multi = 2;
+                        pain = 1;
+                        break;
+                    case 46:
+                    case 47:
+                    case 48:
+                    case 49:
+                    case 50:
+
+                    case 51:
+                    case 52:
+                        result = "Knee hit, leg unusable";
+                        multi = 3;
+                        bleed = 1;
+                        pain = 1;
+                        break;
+                    case 53:
+                    case 54:
+                    case 55:
+                    case 56:
+                    case 57:
+                    case 58:
+                        result = "Elbow hit, arm unusable";
+                        multi = 3;
+                        bleed = 1;
+                        pain = 1;
+                        break;
+                    case 59:
+                    case 60:
+                        result = "Ear removed";
+                        multi = 2;
+                        bleed = 1;
+                        break;
+                    case 61:
+                    case 62:
+                        result = "Nose removed";
+                        multi = 3;
+                        bleed = 1;
+                        break;
+                    case 63:
+                    case 64:
+                    case 65:
+                    case 66:
+                    case 67:
+                    case 68:
+                    case 69:
+                    case 70:
+                    case 71:
+                    case 72:
+                        result = "Stomach hit";
+                        multi = 3;
+                        bleed = 1;
+                        pain = 1;
+                        break;
+                    case 73:
+                    case 74:
+                    case 75:
+                    case 76:
+                        result = "Groin hit, incapacitated until healed";
+                        multi = 4;
+                        bleed = 1;
+                        break;
+                    case 77:
+                    case 78:
+                    case 79:
+                    case 80:
+                    case 81:
+                    case 82:
+                    case 83:
+                        result = "Chest hit, death in HEA rounds";
+                        multi = 4;
+                        mortal = 1;
+                        break;
+                    case 84:
+                    case 85:
+                    case 86:
+                    case 87:
+                    case 88:
+                    case 89:
+                    case 90:
+                        result = "Throat hit, death in HEA rounds";
+                        multi = 5;
+                        mortal = 1;
+                        break;
+                    case 91:
+                    case 92:
+                    case 93:
+                    case 94:
+                    case 95:
+                        result = "Head hit, death in HEA/2 rounds";
+                        multi = 6;
+                        mortal = 1;
+                        break;
+                    case 96:
+                    case 97:
+                    case 98:
+                        result = "Chest Destroyed, INSTANT DEATH";
+                        multi = 7;
+                        break;
+                    case 99:
+                    case 100:
+                        result = "Head Destroyed, INSTANT DEATH";
+                        multi = 7;
+                        break;
+                }
+                break;
+        }
+        result = "Roll: " + roll + "<br><b>Result:</b> " + result;
+        if (multi != 0) {
+            result += "<br><b>Multiplier: </b>" + multi + "x";
+        }
+
+        if (bleed == 1) {
+            result += "<br>Bleeding, lose 1 DP/round until wounds are bound or healing magic is applied";
+        }
+        if (pain == 1) {
+            result += "<br>Pain, actions involving damaged appendage require 4d6 vs WIL";
+        }
+        if (mortal == 1) {
+            result += "<br>Mortal Wound, death is immanent unless healed within the time limit";
+        }
+        if (bludg == 1) {
+            result += "<br>*roll an additional d6:<br>1-4: no additional result<br>5: blind 1d6 days<br>6: amnesia 1d6 weeks";
+        }
+        document.getElementById("result").innerHTML = result;
+    }
+</script>
+
+</html>

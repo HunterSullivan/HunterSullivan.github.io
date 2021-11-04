@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #12437a;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #0b2747;
+    }
+
+    body {
+        background-color: grey;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="navigation"></div>
+    <nav>
+        <ul>
+            <li style="float: left;"><a href="index.html">Home</a></li>
+            <li style="float: left;"><a href="AQ CharGen.html">Character Generator</a></li>
+            <li style="float: left;"><a href="AQ HTML Multiattack Roller.html">Multiattack</a></li>
+            <li style="float: left;"><a href="Contested Checker.html">Contested Checks</a></li>
+            <li style="float: left;"><a href="Gradual Checker.html">Gradual Checks</a></li>
+            <li style="float: left;"><a href="Crit Roller.html">Critical Roller</a></li>
+
+        </ul>
+    </nav>
+
+    <h1>Character Generator</h1>
+    <p>Input how many stat lines you want and hit "Roll". Each stat line will be sorted from highest to lowest, followed
+        by total value. (Note: The total value of an average character is 108)
+        <br>
+        For placed rolls, input the number desired and that many will be rolled for each stat line, replacing the lowest values. Leave blank for none.
+    </p>
+    <label for="CharGen">Stat Lines:</label>
+    <input type="number" id="rolls" name="rolls"><br>
+    <label for="PlacedRolls">Placed Rolls:</label>
+    <input type="number" id="pRolls" name="pRolls"><br>
+    <button type="button" onclick="statRoller()">Roll!</button>
+    <p id="charResult"></p>
+    <p id="pResult"></p>
+
+</body>
+<script>
+    function statRoller() {
+        let min = Math.ceil(1);
+        let max = Math.floor(6);
+        let charAmount = Number(document.getElementById("rolls").value);
+        let pAmount = Number(document.getElementById("pRolls").value);
+        let pTotal = 0;
+        let total = 0;
+        let statArray = [];
+        let result = "";
+        let i = 0;
+        let j = 0;
+
+        if (charAmount < 1) {
+            charAmount = 1;
+        }
+
+        for (i = 0; i < charAmount; i++) {
+            for (j = 0; j < 9; j++) {
+                let stat = 0;
+                let k = 0;
+                while (k < 3) {
+                    let d6 = Math.floor(Math.random() * (max - min + 1) + min);
+                    stat += d6;
+                    k++
+                }
+                total += stat;
+                statArray[j] = stat;
+            }
+
+            if (pAmount > 0) {
+                let rollArray = [];
+                let pTotal = 0;
+                let l = 0;
+                let m = 0;
+                for (l = 0; l < pAmount; l++) {
+                    for (m = 0; m < 4; m++) {
+                        let d6 = Math.floor(Math.random() * (max - min + 1) + min);
+                        rollArray[m] = d6;
+                    }
+                    rollArray.sort(function (a, b) { return b - a });
+                    pTotal = rollArray[0] + rollArray[1] + rollArray[2];
+                    statArray.sort(function (a, b) { return b - a });
+                    if(pTotal > statArray[8]) {
+                        total -= statArray[8];
+                        statArray[8] = pTotal;
+                        total += pTotal;
+                    }
+                    pTotal = 0;
+                }
+            }
+
+            statArray.sort(function (a, b) { return b - a });
+
+            if (result == "") {
+                result = statArray.join(" ") + " Total: " + total;
+            } else {
+                result += "<br>" + statArray.join(" ") + " Total: " + total;
+            }
+            total = 0;
+
+        }
+        document.getElementById("charResult").innerHTML = result;
+    }
+
+</script>
+
+</html>
